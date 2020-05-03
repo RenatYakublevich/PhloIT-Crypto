@@ -112,8 +112,9 @@ def welcome(message):
 	item1 = types.KeyboardButton('💵Курсы криптовалют')
 	item2 = types.KeyboardButton('📊Статистика за 24 часа')
 	item3 = types.KeyboardButton('📰Последняя новость криптовалют')
+	item4 = types.KeyboardButton('💰ICO')
 
-	markup.add(item1,item2,item3)
+	markup.add(item1,item2,item3,item4)
 	gg = 'Привет, <b>' + message.from_user.first_name.title() + '</b>!\n Я - PhloIT, но ты можешь называть меня лучшим телеграм ботом  в мире криптовалют😏\n\nНу что,начнём?!😃'.format(message.from_user, bot.get_me()) 
 	bot.send_message(message.chat.id, gg ,parse_mode='html',reply_markup=markup)
 
@@ -131,7 +132,7 @@ def crypto_price_telegram(message):
 			item6 = types.KeyboardButton('Dash')
 			item7 = types.KeyboardButton('Litecoin')
 			item8 = types.KeyboardButton('EOS')
-			item9 = types.KeyboardButton('Назад')
+			item9 = types.KeyboardButton('Назад🔙')
 			markup.add(item1,item2,item3,item4,item5,item6,item7,item8,item9)
 
 			bot.send_message(message.chat.id, 'Тыкай на любую крипту внизу и моментально узнавай её курс' ,parse_mode='html',reply_markup=markup)
@@ -152,7 +153,7 @@ def crypto_price_telegram(message):
 			bot.send_message(message.chat.id, crypto_price('litecoin'))
 		elif message.text == 'EOS':
 			bot.send_message(message.chat.id, crypto_price('eos'))
-		elif message.text == 'Назад':
+		elif message.text == 'Назад🔙':
 			bot.send_message(message.chat.id, welcome(message))
 
 
@@ -167,7 +168,7 @@ def crypto_price_telegram(message):
 			item6 = types.KeyboardButton('Динамика Dash')
 			item7 = types.KeyboardButton('Динамика Litecoin')
 			item8 = types.KeyboardButton('Динамика EOS')
-			item9 = types.KeyboardButton('Назад')
+			item9 = types.KeyboardButton('Назад🔙')
 			markup.add(item1,item2,item3,item4,item5,item6,item7,item8,item9)
 
 			bot.send_message(message.chat.id, 'Тыкай на любую крипту внизу и моментально узнай динамику курса' ,parse_mode='html',reply_markup=markup)
@@ -221,13 +222,25 @@ def crypto_price_telegram(message):
 				bot.send_message(message.chat.id, 'EOS подсел за последние 24 часа😭⬇️')
 			else:
 				bot.send_message(message.chat.id, 'EOS поднялся за последние 24 часа😃🆙')
-		elif message.text == 'Назад':
+		elif message.text == 'Назад🔙':
 			bot.send_message(message.chat.id, welcome(message))
 
 
 		if message.text == '📰Последняя новость криптовалют':
 			bot.send_message(message.chat.id, last_news() + '\nСсылка : ' + last_news_link(),parse_mode='html')
 
+		if message.text == '💰ICO':
+			markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+			item1 = types.KeyboardButton('Текущие ICO')
+			item2 = types.KeyboardButton('Будущие ICO')
+			item3 = types.KeyboardButton('Завершенные ICO')
+			item4 = types.KeyboardButton('Назад🔙')
+			markup.add(item1,item2,item3,item4)
 
+			sti = open('stickers/1.webp', 'rb')
+			bot.send_sticker(message.chat.id, sti,reply_markup=markup)
+
+		if message.text == 'Текущие ICO':
+			bot.send_message(message.chat.id, '1)Original Protocol\n$38,100,000\nhttps://prometheus.ru/ico/origin-protocol/\n2)Emotiq\n11,800,000 USD/$39,000,000\nhttps://prometheus.ru/ico/emotiq-blockchain/\n3)Ankr Network\n15,950,000 USD/$18,700,000\nhttps://prometheus.ru/ico/ankr-network-cloud-computing/\n4)DREP\n$15,180,000/$19,800,000\nhttps://prometheus.ru/ico/drep/\n5)Quadrant Protocol\n15,000,000 USD/20,000,000 USD\nhttps://prometheus.ru/ico/quadrant-protocol/',parse_mode='html')
 
 bot.polling(none_stop=True)
