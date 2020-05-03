@@ -2,7 +2,7 @@ import telebot
 import config
 import requests
 from bs4 import BeautifulSoup as BS
-import re
+from bs4 import BeautifulSoup
 
 from telebot import types
 
@@ -26,16 +26,94 @@ def stat_24hour(name):
 	title = title.replace('<div>','')
 	return title[0]
 
+
+def last_news():
+	URL = 'https://prometheus.ru/articles/'
+	HEADERS = {
+		'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36'
+
+	}
+
+	response = requests.get(URL, headers = HEADERS)
+	soup = BeautifulSoup(response.content,'html.parser')
+	items = soup.findAll('h2',class_= 'vcex-recent-news-entry-title-heading')
+	comps = []
+
+	for item in items:
+		comps.append({
+			'title' : item.find('a').text,
+			'link'  : item.find('a').get('href')
+
+			})
+	check_list = {}
+
+	for comp in comps :
+
+		gg = comp['title']
+
+	return comp['title']
+
+def last_news_link():
+	URL = 'https://prometheus.ru/articles/'
+	HEADERS = {
+		'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36'
+
+	}
+
+	response = requests.get(URL, headers = HEADERS)
+	soup = BeautifulSoup(response.content,'html.parser')
+	items = soup.findAll('h2',class_= 'vcex-recent-news-entry-title-heading')
+	comps = []
+
+	for item in items:
+		comps.append({
+			'title' : item.find('a').text,
+			'link'  : item.find('a').get('href')
+
+			})
+	check_list = {}
+
+	for comp in comps :
+
+		gg = comp['title']
+
+	return comp['link']
+
+def all_links():
+	URL = 'https://prometheus.ru/articles/'
+	HEADERS = {
+		'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36'
+
+	}
+
+	response = requests.get(URL, headers = HEADERS)
+	soup = BeautifulSoup(response.content,'html.parser')
+	items = soup.findAll('h2',class_= 'vcex-recent-news-entry-title-heading')
+	comps = []
+
+	for item in items:
+		comps.append({
+			'title' : item.find('a').text,
+			'link'  : item.find('a').get('href')
+
+			})
+	check_list = []
+
+	for comp in comps :
+		return comp['link']
+
+
 	
 
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
-	markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+	markup = types.ReplyKeyboardMarkup(resize_keyboard=False)
 	item1 = types.KeyboardButton('💵Курсы криптовалют')
 	item2 = types.KeyboardButton('📊Статистика за 24 часа')
+	item3 = types.KeyboardButton('📰Последняя новость криптовалют')
 
-	markup.add(item1,item2)
+	markup.add(item1,item2,item3)
 	gg = 'Привет, <b>' + message.from_user.first_name.title() + '</b>!\n Я - PhloIT, но ты можешь называть меня лучшим телеграм ботом  в мире криптовалют😏\n\nНу что,начнём?!😃'.format(message.from_user, bot.get_me()) 
 	bot.send_message(message.chat.id, gg ,parse_mode='html',reply_markup=markup)
 
@@ -145,7 +223,10 @@ def crypto_price_telegram(message):
 				bot.send_message(message.chat.id, 'EOS поднялся за последние 24 часа😃🆙')
 		elif message.text == 'Назад':
 			bot.send_message(message.chat.id, welcome(message))
-		
+
+
+		if message.text == '📰Последняя новость криптовалют':
+			bot.send_message(message.chat.id, last_news() + '\nСсылка : ' + last_news_link(),parse_mode='html')
 
 
 
