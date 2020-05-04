@@ -132,7 +132,7 @@ def crypto_price_telegram(message):
 			item6 = types.KeyboardButton('Dash')
 			item7 = types.KeyboardButton('Litecoin')
 			item8 = types.KeyboardButton('EOS')
-			item9 = types.KeyboardButton('Назад🔙')
+			item9 = types.KeyboardButton('Назад ◀️')
 			markup.add(item1,item2,item3,item4,item5,item6,item7,item8,item9)
 
 			bot.send_message(message.chat.id, 'Тыкай на любую крипту внизу и моментально узнавай её курс' ,parse_mode='html',reply_markup=markup)
@@ -153,7 +153,7 @@ def crypto_price_telegram(message):
 			bot.send_message(message.chat.id, crypto_price('litecoin'))
 		elif message.text == 'EOS':
 			bot.send_message(message.chat.id, crypto_price('eos'))
-		elif message.text == 'Назад🔙':
+		elif message.text == 'Назад ◀️':
 			bot.send_message(message.chat.id, welcome(message))
 
 
@@ -168,7 +168,7 @@ def crypto_price_telegram(message):
 			item6 = types.KeyboardButton('Динамика Dash')
 			item7 = types.KeyboardButton('Динамика Litecoin')
 			item8 = types.KeyboardButton('Динамика EOS')
-			item9 = types.KeyboardButton('Назад🔙')
+			item9 = types.KeyboardButton('Назад ◀️')
 			markup.add(item1,item2,item3,item4,item5,item6,item7,item8,item9)
 
 			bot.send_message(message.chat.id, 'Тыкай на любую крипту внизу и моментально узнай динамику курса' ,parse_mode='html',reply_markup=markup)
@@ -222,7 +222,7 @@ def crypto_price_telegram(message):
 				bot.send_message(message.chat.id, 'EOS подсел за последние 24 часа😭⬇️')
 			else:
 				bot.send_message(message.chat.id, 'EOS поднялся за последние 24 часа😃🆙')
-		elif message.text == 'Назад🔙':
+		elif message.text == 'Назад ◀️':
 			bot.send_message(message.chat.id, welcome(message))
 
 
@@ -234,13 +234,53 @@ def crypto_price_telegram(message):
 			item1 = types.KeyboardButton('Текущие ICO')
 			item2 = types.KeyboardButton('Будущие ICO')
 			item3 = types.KeyboardButton('Завершенные ICO')
-			item4 = types.KeyboardButton('Назад🔙')
+			item4 = types.KeyboardButton('Назад ◀️')
 			markup.add(item1,item2,item3,item4)
 
 			sti = open('stickers/1.webp', 'rb')
 			bot.send_sticker(message.chat.id, sti,reply_markup=markup)
 
 		if message.text == 'Текущие ICO':
-			bot.send_message(message.chat.id, '1)Original Protocol\n$38,100,000\nhttps://prometheus.ru/ico/origin-protocol/\n2)Emotiq\n11,800,000 USD/$39,000,000\nhttps://prometheus.ru/ico/emotiq-blockchain/\n3)Ankr Network\n15,950,000 USD/$18,700,000\nhttps://prometheus.ru/ico/ankr-network-cloud-computing/\n4)DREP\n$15,180,000/$19,800,000\nhttps://prometheus.ru/ico/drep/\n5)Quadrant Protocol\n15,000,000 USD/20,000,000 USD\nhttps://prometheus.ru/ico/quadrant-protocol/',parse_mode='html')
+			bot.send_message(message.chat.id, '1)Original Protocol\n$38,100,000\nhttps://prometheus.ru/ico/origin-protocol/\n\n2)Emotiq\n11,800,000 USD/$39,000,000\nhttps://prometheus.ru/ico/emotiq-blockchain/\n\n3)Ankr Network\n15,950,000 USD/$18,700,000\nhttps://prometheus.ru/ico/ankr-network-cloud-computing/\n\n4)DREP\n$15,180,000/$19,800,000\nhttps://prometheus.ru/ico/drep/\n\n5)Quadrant Protocol\n15,000,000 USD/20,000,000 USD\nhttps://prometheus.ru/ico/quadrant-protocol/',parse_mode='html')
+
+		if message.text == 'Будущие ICO':
+			bot.send_message(message.chat.id,'1)Orchid Protocol\n$40,800,000\nhttps://prometheus.ru/ico/orchid-protocol/\n\n2)Keep network\nhttps://prometheus.ru/ico/keep-network/\n\n3)NuCypher\n$5,150,000\nhttps://prometheus.ru/ico/nucypher/\n\n4)Mattereum\nhttps://prometheus.ru/ico/mattereum/\n\n5)Lambda\n$15,000,000/$20,000,000\nhttps://prometheus.ru/ico/lambda/',parse_mode='html')
+
+		if message.text == 'Завершенные ICO':
+			markup = types.InlineKeyboardMarkup(row_width=2)
+			item1 = types.InlineKeyboardButton("BABB", callback_data='babb')
+			item2 = types.InlineKeyboardButton("TE-FOOD", callback_data='te_food')
+			item3 = types.InlineKeyboardButton("Electrify.Asia", callback_data='asia')
+			item4  = types.InlineKeyboardButton("Debitum Network", callback_data='networks')
+			item5 = types.InlineKeyboardButton("Banca",callback_data='banca')
+			item6 = types.InlineKeyboardButton("NaPoleonX",callback_data='napoleon')
+
+			markup.add(item1,item2,item3,item4,item5,item6)
+
+			bot.send_message(message.chat.id, 'Поехали👇', reply_markup=markup)
+
+
+
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_inline(call):
+    try:
+        if call.message:
+        	if call.data == 'babb':
+        		bot.send_message(call.message.chat.id, 'Название : BABB 👀\n\nЦель сборов : $20,000,000 USD💶\n\nТип токена: ERC20🤖\n\nЦена токена: 1 BAX = 0.0012 USD💰')
+        	elif call.data == 'te_food':
+        		bot.send_message(call.message.chat.id, 'Название : TE-FOOD 👀\n\nЦель сборов : $19,000,000 USD💶\n\nТип токена: ERC20🤖\n\nЦена токена: 1 TFD = 0.0391 USD💰')
+        	elif call.data == 'asia':
+        		bot.send_message(call.message.chat.id, 'Название : Electrify.Asia 👀\n\nЦель сборов : $30,000,000 USD💶\n\nТип токена: ERC20🤖\n\nЦена токена: 1 ELEC = 0.0800 USD💰')
+        	elif call.data == 'networks':	
+        		bot.send_message(call.message.chat.id, 'Название : Debitum Network 👀\n\nЦель сборов : $17,200,000 USD💶\n\nТип токена: ERC223🤖\n\nЦена токена: 1 DEB = 0.13 USD💰')
+        	elif call.data == 'banca':
+        		bot.send_message(call.message.chat.id, 'Название : Banca 👀\n\nЦель сборов : $20,000,000 USD💶\n\nТип токена: ERC20🤖\n\nЦена токена: 1 BANCA = 0.0020 USD💰')
+        	elif call.data == 'napoleon':
+        		bot.send_message(call.message.chat.id, 'Название : NaPoleonX 👀\n\nЦель сборов : 18,300,000 USD💶\n\nТип токена: ERC20🤖\n\nЦена токена: 1 NPX = 0.87 USD💰')
+
+    except Exception as e:
+        print(repr(e))
+
 
 bot.polling(none_stop=True)
