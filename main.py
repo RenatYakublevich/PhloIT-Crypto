@@ -14,7 +14,7 @@ def crypto_price(name):
 	title = html.select('.analytics-crypto-item__instrument-price-left')
 
 	return title
-	
+
 
 def stat_24hour(name):
 	rs = requests.get('https://alpari.com/ru/markets/crypto/' + name + '/')
@@ -103,7 +103,7 @@ def all_links():
 		return comp['link']
 
 
-	
+
 
 
 @bot.message_handler(commands=['start'])
@@ -113,9 +113,10 @@ def welcome(message):
 	item2 = types.KeyboardButton('📊Статистика за 24 часа')
 	item3 = types.KeyboardButton('📰Последняя новость криптовалют')
 	item4 = types.KeyboardButton('💰ICO')
+	item5 = types.KeyboardButton('🆕Для новичков')
 
-	markup.add(item1,item2,item3,item4)
-	gg = 'Привет, <b>' + message.from_user.first_name.title() + '</b>!\n Я - PhloIT, но ты можешь называть меня лучшим телеграм ботом  в мире криптовалют😏\n\nНу что,начнём?!😃'.format(message.from_user, bot.get_me()) 
+	markup.add(item1,item2,item3,item4,item5)
+	gg = 'Привет, <b>' + message.from_user.first_name.title() + '</b>!\n Я - PhloIT, но ты можешь называть меня лучшим телеграм ботом  в мире криптовалют😏\n\nНу что,начнём?!😃'.format(message.from_user, bot.get_me())
 	bot.send_message(message.chat.id, gg ,parse_mode='html',reply_markup=markup)
 
 
@@ -259,8 +260,54 @@ def crypto_price_telegram(message):
 
 			bot.send_message(message.chat.id, 'Поехали👇', reply_markup=markup)
 
+		if message.text == '🆕Для новичков':
+			markup = types.ReplyKeyboardMarkup(resize_keyboard=False)
+			item1 = types.KeyboardButton('Что такое блокчейн?')
+			item2 = types.KeyboardButton('Что такое ICO?')
+			item3 = types.KeyboardButton('Что такое трейдинг криптовалютой?')
+			item4 = types.KeyboardButton('Где хранить биткоин и другие криптовалюты? В кошельке')
+			item5 = types.KeyboardButton('Что такое биткоин?')
+			item6 = types.KeyboardButton('Далее')
+			markup.add(item1,item2,item3,item4,item5,item6)
 
+			bot.send_message(message.chat.id,'Тут столько инфы....😮\nЕсли ты всё это прочитаешь - точно станешь про!😉',parse_mode='html',reply_markup=markup)
 
+		if message.text =='Далее':
+			markup = types.ReplyKeyboardMarkup(resize_keyboard=False)
+			item1 = types.KeyboardButton('Что такое смарт-контракты?')
+			item2 = types.KeyboardButton('Что такое криптоанархизм?')
+			item3 = types.KeyboardButton('Не попаду ли я в тюрьму за биткоины?')
+			item4 = types.KeyboardButton('Что такое майнинг криптовалют?')
+			item5 = types.KeyboardButton('Как майнить криптовалюту')
+			item6 = types.KeyboardButton('Что такое Эфириум?')
+			item7 = types.KeyboardButton('Назад ◀️')
+
+			markup.add(item1,item2,item3,item4,item5,item6,item7)
+
+			bot.send_message(message.chat.id,'Страница 2️⃣,а количество инфы только увеличивается..',parse_mode='html',reply_markup=markup)
+
+		if message.text == 'Что такое блокчейн?':
+			bot.send_message(message.chat.id, 'Интересно, что такое блокчейн🧐\nДавай узнаем!\nТыкай - https://telegra.ph/CHto-takoe-blokchejn-05-04',parse_mode='html')
+		if message.text == 'Что такое ICO?':
+			bot.send_message(message.chat.id, 'ICO - великая вещь,помогающая тысячи проектам ежедневно\nДавайте же поглубже изучим данную тему\n Тыкай - https://telegra.ph/CHto-takoe-ICO-05-04',parse_mode='html')
+		if message.text == 'Что такое трейдинг криптовалютой?':
+			bot.send_message(message.chat.id, 'Трейдинг - очередное МММ или же что то более значимое?\nДавайте же узнаем\nТыкай -https://telegra.ph/CHto-takoe-trejding-kriptovalyutoj-05-04',parse_mode='html')
+		if message.text == 'Где хранить биткоин и другие криптовалюты? В кошельке':
+			bot.send_message(message.chat.id,'Конечно же в кошельке,кстати пойду хлеба куплю за пятак биткоина...Шутка\nДавайте узнаем тру инфу!\nТыкай - https://telegra.ph/Gde-hranit-bitkoin-i-drugie-kriptovalyuty-V-koshelke-05-04',parse_mode='html')
+		if message.text == 'Что такое биткоин?':
+			bot.send_message(message.chat.id,'Деньги из банка приколов - или всё таки нет\nДавайте же узнаем!\nТыкай - https://telegra.ph/CHto-takoe-bitkoin-05-04',parse_mode='html')
+		if message.text == 'Что такое смарт-контракты?':
+			bot.send_message(message.chat.id,'А я хотел контракт с Microsoft...\nТыкай - https://telegra.ph/CHto-takoe-smart-kontrakty-05-04',parse_mode='html')
+		if message.text == 'Что такое криптоанархизм?':
+			bot.send_message(message.chat.id,'Мать анархия да?)\n Тыкай - https://telegra.ph/CHto-takoe-kriptoanarhizm-05-04',parse_mode='html')
+		if message.text == 'Не попаду ли я в тюрьму за биткоины?':
+			bot.send_message(message.chat.id,'я не придумал шутки про тюрьму и биткоины xD\nВсе равно тыкай - https://telegra.ph/Ne-popadu-li-ya-v-tyurmu-za-bitkoiny-05-04',parse_mode='html')
+		if message.text == 'Что такое майнинг криптовалют?':
+			bot.send_message(message.chat.id,'эм,что,майнкрафт?)\nпрости я больше не буду,Тыкай - https://telegra.ph/CHto-takoe-majning-kriptovalyut-05-04',parse_mode='html')
+		if message.text == 'Как майнить криптовалюту':
+			bot.send_message(message.chat.id, 'Да вроде легко 10 штук 1080GTX и поехали!🤠\nНо всё не так просто,так что ТЫКАЙ - https://telegra.ph/Kak-majnit-kriptovalyutu-05-04',parse_mode='html')
+		if message.text == 'Что такое Эфириум?':
+			bot.send_message(message.chat.id, 'РУССКАЯ КРИПТОВАЛЮТА!!!\nТыкай,будь патритотом🇷🇺 - https://telegra.ph/CHto-takoe-EHfirium-05-04',parse_mode='html')
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
@@ -272,7 +319,7 @@ def callback_inline(call):
         		bot.send_message(call.message.chat.id, 'Название : TE-FOOD 👀\n\nЦель сборов : $19,000,000 USD💶\n\nТип токена: ERC20🤖\n\nЦена токена: 1 TFD = 0.0391 USD💰')
         	elif call.data == 'asia':
         		bot.send_message(call.message.chat.id, 'Название : Electrify.Asia 👀\n\nЦель сборов : $30,000,000 USD💶\n\nТип токена: ERC20🤖\n\nЦена токена: 1 ELEC = 0.0800 USD💰')
-        	elif call.data == 'networks':	
+        	elif call.data == 'networks':
         		bot.send_message(call.message.chat.id, 'Название : Debitum Network 👀\n\nЦель сборов : $17,200,000 USD💶\n\nТип токена: ERC223🤖\n\nЦена токена: 1 DEB = 0.13 USD💰')
         	elif call.data == 'banca':
         		bot.send_message(call.message.chat.id, 'Название : Banca 👀\n\nЦель сборов : $20,000,000 USD💶\n\nТип токена: ERC20🤖\n\nЦена токена: 1 BANCA = 0.0020 USD💰')
